@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPage</title>
+    <style>
+        body {
+            margin:0px;
+        }
+        .page {
+            display:none;
+        }
+        
+        #main {
+            display: block;
+
+        }
+
+        .mid {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .box {          
+            width:100vw;
+            height:100vh;
+            background-color: #A2F403;
+            position: absolute;
+        }
+
+        .login-box {
+            width:500px;
+            height:500px;
+            margin:0 auto;
+            border: 1px solid black;
+        }
+
+        .input {
+            width:200px;
+            height: 40px;
+        }
+
+        #message {
+            color:blue;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page box" id="main">
+        <h1 class="mid">Main Page</h1>
+        
+        <table style="margin-left:auto;margin-right:auto;">
+            <tr>
+                <td>
+                    <button id="1">버튼</button>
+                </td>
+                <td>
+                    <button id="toLogin">login</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="page box" id="login">
+        <h1 class="mid">Login Page</h1>
+        <div class="login-box">
+            <p class="mid" style="font-size: 25px;"><strong>Login</strong></p>
+            <div class="mid" id="input">
+                <input class="input" type="text" id="userId" placeholder="아이디"> <br>
+                <input class="input" type="password" id="password" placeholder="비밀번호"> <br>
+                <button class="input" id="login_button">login</button>
+            </div>
+            <button class="toMain">돌아가기</button>
+            <div class="page mid" id="mesShow">
+                <p id="message">Hello <span id="mes">name</span></p>
+            </div>
+        </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        // document.getElementsByClassName('1').addEventListener('click', function(){
+        //     alert('not exist');
+        // });
+        $('#toLogin').on('click', function(){
+            show('login');
+        });
+
+        $('#1').on('click', function(){
+            alert('not exist!');
+        });
+
+        $('.toMain').on('click', function(){
+            show('main');
+            valueClear();
+        });
+
+        function show(page) {
+            $('.page').css("display", "none");
+            document.getElementById(page).style.display='block';
+        }
+
+        $('#login_button').on('click', function(){
+            if (document.getElementById('userId').value == '') {
+                alert('아이디를 입력해주세요.');
+                return;
+            }
+            if (document.getElementById('password').value == '') {
+                alert('비밀번호를 입력해주세요.');
+                return;
+            }
+            if (document.getElementById('userId').value == 'guest') {
+                if (document.getElementById('password').value == '1234') {
+                    alert('Login Success!');
+                    showMessage('guest');
+                    return;
+                }
+            }
+
+            if (document.getElementById('userId').value == 'admin') {
+                if (document.getElementById('password').value == '1234') {
+                    alert('Login Success!');
+                    // show('mesShow');
+                    showMessage('admin');
+                    return;
+                }
+            }
+            alert('Login failed!');
+        });
+    
+
+        function showMessage(id) {
+            document.getElementById('mes').innerHTML=id;
+            document.getElementById('mesShow').style.display='block';
+        }
+
+        function valueClear() {
+            document.getElementById('userId').value = '';
+            document.getElementById('password').value = '';
+        }
+    </script>
+</body>
+</html>
